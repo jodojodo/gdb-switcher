@@ -19,6 +19,11 @@ cp gef/gef.py ~/.gdbinit-gef.py
 gefInit="~/.gdbinit-gef.py"
 echo "source "$gefInit > ~/.gdbinit-gef
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-gef
+# Setup gef as standard
+cp ~/.gdbinit-gef ~/.gdbinit
+# Install gef-extras
+rm -rf gef/gef-extras && mkdir gef/gef-extras
+bash gef/scripts/gef-extras.sh -b dev -p "$PWD/gef"
 
 echo -e "[+] 3. peda"
 pedaInit=$PWD"/peda/peda.py"

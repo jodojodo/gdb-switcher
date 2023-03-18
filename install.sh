@@ -4,12 +4,10 @@ git submodule init
 git submodule update
 
 # gef
-echo -e "\n[x] Update Gef Submodule and install gef-extras"
+echo -e "\n[x] Update Gef Submodule"
 cd gef
 git checkout dev
 git pull
-rm gef-extras && mkdir gef-extras
-bash scripts/gef-extras.sh -b dev -p $PWD
 cd ../
 
 # peda
