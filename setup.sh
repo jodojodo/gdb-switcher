@@ -15,8 +15,7 @@ echo "source ~/.gdbinit-my" > ~/.gdbinit-gdb
 
 # gef
 echo -e "[+] 2. gef"
-#git submodule add https://github.com/hugsy/gef.git
-wget -O ~/.gdbinit-gef.py -q https://github.com/hugsy/gef/raw/master/gef.py
+cp gef/gef.py ~/.gdbinit-gef.py
 gefInit="~/.gdbinit-gef.py"
 echo "source "$gefInit > ~/.gdbinit-gef
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-gef
@@ -31,8 +30,8 @@ pwndbgInit=$PWD"/pwndbg/gdbinit.py"
 echo "source "$pwndbgInit > ~/.gdbinit-pwndbg
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-pwndbg
 
-echo -e "[+] gdb-switcher configuration ~/.bashrc"
-cat <<'EOF' >> ~/.bashrc
+echo -e "[+] gdb-switcher configuration ~/.zshrc"
+cat <<'EOF' >> ~/.zshrc
 
 # gdbs : gdb-switcher
 function gdbs() {
@@ -76,7 +75,7 @@ function gdbs() {
 }
 EOF
 
-echo -e "\n[+] Source .bashrc again for using new gdbs configuration."
-source ~/.bashrc
+echo -e "\n[+] Source .zshrc again for using new gdbs configuration."
+source ~/.zshrc
 
 echo -e "\n[+] DONE."
