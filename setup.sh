@@ -1,3 +1,8 @@
+#!/bin/sh
+
+SCRIPT=$(readlink -f "$0")
+BASEDIR=$(dirname "$SCRIPT")
+
 # .gdbinit backup
 echo "[+] Backup ~/.gdbinit"
 NOW=$(date +"%Y-%M-%d")
@@ -6,7 +11,7 @@ cp ~/.gdbinit ~/.gdbinit".backup@"$NOW
 # .gdbinit my configuration
 if [ ! -f ~/.gdbinit-my ]; then
     echo "[+] copy .gdbinit-my to ~"
-    cp .gdbinit-my ~
+    cp "$BASEDIR"/.gdbinit-my ~
 fi
 
 # Legacy gdb
@@ -15,23 +20,23 @@ echo "source ~/.gdbinit-my" > ~/.gdbinit-gdb
 
 # gef
 echo -e "[+] 2. gef"
-cp gef/gef.py ~/.gdbinit-gef.py
+cp "$BASEDIR"/gef/gef.py ~/.gdbinit-gef.py
 gefInit="~/.gdbinit-gef.py"
 echo "source "$gefInit > ~/.gdbinit-gef
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-gef
 # Setup gef as standard
 cp ~/.gdbinit-gef ~/.gdbinit
 # Install gef-extras
-rm -rf gef/gef-extras && mkdir gef/gef-extras
-bash gef/scripts/gef-extras.sh -b dev -p "$PWD/gef"
+rm -rf "$BASEDIR"/gef/gef-extras && mkdir "$BASEDIR"/gef/gef-extras
+bash "$BASEDIR"/gef/scripts/gef-extras.sh -b main -p "$BASEDIR/gef"
 
 echo -e "[+] 3. peda"
-pedaInit=$PWD"/peda/peda.py"
+pedaInit="$BASEDIR/peda/peda.py"
 echo "source "$pedaInit > ~/.gdbinit-peda
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-peda
 
 echo -e "[+] 4. pwndbg"
-pwndbgInit=$PWD"/pwndbg/gdbinit.py"
+pwndbgInit="$BASEDIR/pwndbg/gdbinit.py"
 echo "source "$pwndbgInit > ~/.gdbinit-pwndbg
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-pwndbg
 

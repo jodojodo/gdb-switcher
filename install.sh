@@ -1,3 +1,8 @@
+#!/bin/sh
+
+SCRIPT=$(readlink -f "$0")
+BASEDIR=$(dirname "$SCRIPT")
+
 # submodule
 echo -e "\n[+] Update submodule : gef, gepda, pwndbg"
 git submodule init
@@ -5,27 +10,27 @@ git submodule update
 
 # gef
 echo -e "\n[x] Update Gef Submodule"
-cd gef
-git checkout dev
+cd "$BASEDIR"/gef
+git checkout main
 git pull
-cd ../
 
 # peda
-cd peda
+cd "$BASEDIR"/peda
 git checkout master
 git pull
 
 # pwndbg
 echo -e "\n[x] Update pwndbg Submodule"
-cd pwndbg
+cd "$BASEDIR"/pwndbg
+echo $(pwd)
 git checkout dev
 git pull
 echo -e "\n[+] Install pwndbg"
-(cd pwndbg && ./setup.sh)
+./setup.sh
 
-# radare2 
+# radare2
 echo -e "\n[x] Update Radare2 Submodule"
-cd radare2
+cd "$BASEDIR"/radare2
 git checkout master
 git pull
 echo -e "\n[+] Install radare2"
