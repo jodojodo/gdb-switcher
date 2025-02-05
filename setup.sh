@@ -32,6 +32,12 @@ bash "$BASEDIR"/gef/scripts/gef-extras.sh -b main -p "$BASEDIR/gef"
 
 echo -e "[+] 3. peda"
 pedaInit="$BASEDIR/peda/peda.py"
+rm "$BASEDIR/peda/lib/six.py" # as this is served via apt
+
+# Work around for syntax error
+rm "$BASEDIR/peda/peda.py"
+wget https://raw.githubusercontent.com/longld/peda/444921e53c954468390af33e3d139d553a05df28/peda.py -O "$BASEDIR/peda/peda.py"
+
 echo "source "$pedaInit > ~/.gdbinit-peda
 echo "source ~/.gdbinit-my" >> ~/.gdbinit-peda
 
